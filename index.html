@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors Game</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .game-container {
+        width: 90%;
+        max-width: 600px;
+        background-color: #8bc6ec;
+        background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+        font-size: 20px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 3px 5px 1px 1px;
+      }
+
+      .game-container h1 {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 2em;
+      }
+
+      .score-container {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 20px 0;
+      }
+
+      .score-container p {
+        margin: 0;
+      }
+
+      .hands-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        font-size: 50px;
+      }
+
+      .game-result {
+        display: block;
+        margin: 20px auto;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      .scores {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+      }
+
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        background-color: white;
+      }
+
+      button:active {
+        transform: translateY(3px);
+        background-color: rgb(209, 198, 198);
+      }
+
+      @media (min-width: 600px) {
+        .game-container {
+          font-size: 24px;
+        }
+
+        .hands-container {
+          font-size: 80px;
+        }
+
+        button {
+          font-size: 1.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>Rock Paper Scissors Game</h1>
+      <div class="scores">
+        <p>Player Score: <span id="player-score">0</span></p>
+        <p>Computer Score: <span id="computer-score">0</span></p>
+      </div>
+      <div class="score-container">
+        <p>Player:</p>
+        <p>Computer:</p>
+      </div>
+      <div class="hands-container">
+        <p id="player-hand">✊</p>
+        <p id="computer-hand">✊</p>
+      </div>
+      <div id="game-result" class="game-result">Result</div>
+      <br />
+      <button onclick="playGame()">Start</button>
+    </div>
+    <script>
+      const gameOptions = [
+        { name: "Rock", emoji: "✊" },
+        { name: "Paper", emoji: "✋" },
+        { name: "Scissors", emoji: "✌️" },
+      ];
+
+      const playerHand = document.getElementById("player-hand");
+      const computerHand = document.getElementById("computer-hand");
+      const gameResult = document.getElementById("game-result");
+
+      let playerScore = 0;
+      let computerScore = 0;
+
+      function playGame() {
+        const playerChoice =
+          gameOptions[Math.floor(Math.random() * gameOptions.length)];
+        const computerChoice =
+          gameOptions[Math.floor(Math.random() * gameOptions.length)];
+
+        playerHand.textContent = playerChoice.emoji;
+        playerHand.alt = playerChoice.name;
+        computerHand.textContent = computerChoice.emoji;
+        computerHand.alt = computerChoice.name;
+
+        if (playerChoice.name === computerChoice.name) {
+          gameResult.innerHTML = "It's a tie";
+        } else if (
+          (playerChoice.name === "Rock" &&
+            computerChoice.name === "Scissors") ||
+          (playerChoice.name === "Paper" && computerChoice.name === "Rock") ||
+          (playerChoice.name === "Scissors" && computerChoice.name === "Paper")
+        ) {
+          gameResult.innerHTML = "Player wins!!!";
+          gameResult.style.color = "Green";
+          playerScore++;
+          document.getElementById("player-score").innerText = playerScore;
+        } else {
+          gameResult.innerHTML = "Computer wins :(";
+          gameResult.style.color = "Red";
+          computerScore++;
+          document.getElementById("computer-score").innerText = computerScore;
+        }
+      }
+    </script>
+  </body>
+</html>
